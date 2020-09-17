@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{%block content %}
+
+  {% for player in players%}
+
+  <p>{{player.name}} has connected...</p>
+
+  {% endfor %}
+
+{% endblock %}
