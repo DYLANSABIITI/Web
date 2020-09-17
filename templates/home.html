@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 
+{%block head%}{{title}} {%endblock%}
+
 {%block content %}
 
   {% for player in players%}
 
-  <p>{{player.name}} has connected...</p>
+  <p>{{player.name}} has connected... 
+  <a href="/delete/{{player.id}}"><input class="btn btn-danger btn-sm" type="button"name="delete" value="Delete"></a>
+  </p>
 
   {% endfor %}
 

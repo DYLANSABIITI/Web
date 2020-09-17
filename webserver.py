@@ -17,6 +17,20 @@ class Players(db.Model):
         return f"Name:{self.name}, Date joined: {self.date_joined}"
 
 
+@app.route("/delete/<int:id>")
+def delete(id):
+    delete = Players.query.get_or_404(id)
+
+    if delete:
+        try:
+            db.session.delete(delete)
+            db.session.commit()
+
+            return redirect("/home")
+        except:
+            return "something went wrong while deleting player"
+
+
 
 @app.route("/", methods=["GET"])
 def index():
@@ -25,6 +39,7 @@ def index():
 
 @app.route("/home", methods=["POST", "GET"])
 def home():
+    title = "Gouping"
     if request.method == "POST":
         player_name = request.form.get("name")
         new_player = Players(name=player_name)
@@ -36,7 +51,7 @@ def home():
         return redirect("/home")
     else:
         players = Players.query.order_by(Players.date_joined)
-        return render_template("home.html", players=players)
+        return render_template("home.html", players=players, title= title)
 
 
 
